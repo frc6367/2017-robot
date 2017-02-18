@@ -1,41 +1,30 @@
 package org.usfirst.frc.team6367.robot;
 
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team6367.robot.autonomous.SimpleAutonomous;
+import org.usfirst.frc.team6367.robot.components.DriveTrain;
 
-public class Robot extends SampleRobot {
+import io.github.robotpy.magicbot.MagicRobot;
+
+public class Robot extends MagicRobot {
+
+	@Override
+	protected void createObjects() {
+		
+		// add components first
+		DriveTrain driveTrain = new DriveTrain();
+		//addComponent(driveTrain);
+		
+		// then add autonomous modes
+		addAutonomous("Demo", new SimpleAutonomous());
+	}
 	
-	public Robot() {
-	}
-
 	@Override
-	public void robotInit() {
-		//chooser.addDefault("Default Auto", defaultAuto);
-		//chooser.addObject("My Auto", customAuto);
-		//SmartDashboard.putData("Auto modes", chooser);
-	}
-
-	@Override
-	public void autonomous() {
+	protected void teleopInit() {
 		
 	}
-
-	/**
-	 * Runs the motors with arcade steering.
-	 */
+	
 	@Override
-	public void operatorControl() {
+	protected void teleopPeriodic() {
 		
-		while (isOperatorControl() && isEnabled()) {
-			
-			Timer.delay(0.005); // wait for a motor update time
-		}
-	}
-
-	/**
-	 * Runs during test mode
-	 */
-	@Override
-	public void test() {
 	}
 }
