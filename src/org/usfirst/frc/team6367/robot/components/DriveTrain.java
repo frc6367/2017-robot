@@ -1,8 +1,9 @@
 package org.usfirst.frc.team6367.robot.components;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import io.github.robotpy.magicbot.MagicComponent;
 
-public class DriveTrain {
+public class DriveTrain implements MagicComponent {
 	
 	double m_speed = 0;
 	double m_rotation = 0;
