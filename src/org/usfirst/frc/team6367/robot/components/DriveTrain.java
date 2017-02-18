@@ -25,6 +25,7 @@ public class DriveTrain {
 	public void execute(){
 		m_drive.arcadeDrive(m_speed, m_rotation, true);
 		
+		// reset the values
 		m_speed = 0;
 		m_rotation = 0;
 		m_shouldRotate = false;
