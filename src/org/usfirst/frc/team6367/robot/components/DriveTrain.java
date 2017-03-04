@@ -2,11 +2,12 @@ package org.usfirst.frc.team6367.robot.components;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import io.github.robotpy.magicbot.MagicComponent;
 
 public class DriveTrain implements MagicComponent {
 	
-	static final double ENCODER_P = 0.1;
+	double ENCODER_P = 0.1;
 	
 	// assumes the toughbox is 10.71:1 gear ratio
 	// wheel is 0.5 feet
@@ -21,6 +22,12 @@ public class DriveTrain implements MagicComponent {
 	
 	RobotDrive m_drive; 
 	Encoder encoder= new Encoder(0,1);
+	
+	@Override
+	public void onEnabled() {
+		ENCODER_P = SmartDashboard.getNumber("encoder_p", ENCODER_P);
+	}
+	
 	
 	/**
 	 * 
