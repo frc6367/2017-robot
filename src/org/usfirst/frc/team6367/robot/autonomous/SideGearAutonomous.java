@@ -25,9 +25,10 @@ public class SideGearAutonomous extends AutonomousStateMachine {
 		}
 		
 	}
-		public void driveForwardAgain(){
+	
+	public void driveForwardAgain(){
 		if(drivetrain.moveTo() == true){
-			
+			done();
 		}
 	}
 }
