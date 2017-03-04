@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6367.robot.components;
+package org.usfirst.frc.team6367.robot.autonomous;
 
 import org.usfirst.frc.team6367.robot.components.DriveTrain;
 
