@@ -17,6 +17,9 @@ public class DriveTrain implements MagicComponent {
 		m_speed = speed;
 		m_rotation = rotation;
 	}
+	public boolean moveTo(){
+	return false;
+	}
 	
 	public void rotateTo(double angle){
 		m_angle = angle;
@@ -26,7 +29,7 @@ public class DriveTrain implements MagicComponent {
 	public void execute(){
 		m_drive.arcadeDrive(m_speed, m_rotation, true);
 		
-		// reset the values
+		// reset the values 
 		m_speed = 0;
 		m_rotation = 0;
 		m_shouldRotate = false;
