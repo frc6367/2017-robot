@@ -47,7 +47,12 @@ public abstract class MagicRobot extends SampleRobot {
 		// create user objects
 		createObjects();
 		
-		// setup autonomous modes
+		// TODO: component injection
+		
+		// perform injection on autonomous modes for now
+		for (MagicAutonomous autonomous: m_autonomous.values()) {
+			MagicInjector.inject(this, autonomous, null);
+		}
 		
 		SmartDashboard.putData("Autonomous Mode", m_autoChooser);
 		
@@ -57,8 +62,6 @@ public abstract class MagicRobot extends SampleRobot {
 		Arrays.sort(modes);
 		
 		new SmartDashboard().putStringArray("Auto List", modes);
-		
-		// create robot components and wire them together
 		
 		m_nt = NetworkTable.getTable("/robot");
 		m_nt.putBoolean("is_simulation", isSimulation());
