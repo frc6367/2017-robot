@@ -4,42 +4,60 @@ import edu.wpi.first.wpilibj.Victor;
 import io.github.robotpy.magicbot.MagicComponent;
 
 public class Fuel implements MagicComponent {
+
+	static final int FRONT_ON = 1;
+	static final int OFF = 0;
+	static final int REAR_UPPER_ON = 1;
+	static final int REAR_LOWER_IN = 1;
+	static final int REAR_LOWER_OUT =-1;
 	
-	Victor motor1 = new Victor(5);
-	Victor motor2 = new Victor(6);
+	Victor frontIntakeMotor = new Victor(5);
+	Victor upperRearMotor = new Victor(6);
+	Victor rearLowerMotor = new Victor (7);
+	
 
 	boolean shot = false;
-	boolean take=false;
+	boolean take = false;
 	
-	public void shoot() {
+	
+	public void  shoot() {
 		shot = true;
-
 	}
 
 	public void inTake() {
-		take =true;
+		take = true;
 	}
+	
 
 	public void execute(){
-		if(shot=true){
+		if (shot==false && take==false){
+			frontIntakeMotor.set(OFF);
+			upperRearMotor.set(OFF);
+			rearLowerMotor.set(OFF);
+		}
+		else if (shot==true && take==false){
+			frontIntakeMotor.set(OFF);
+			upperRearMotor.set(REAR_UPPER_ON);
+			rearLowerMotor.set(REAR_LOWER_OUT);
 			
-			motor1.set(1);
 		}
-		else{
-			motor1.set(0);
-		}
-
-		if(take==true){
+		
+		else if (shot==false && take==true){
+			frontIntakeMotor.set(FRONT_ON);
+			upperRearMotor.set(REAR_UPPER_ON);
+			rearLowerMotor.set(REAR_LOWER_IN);
 			
-			motor2.set(1);
 		}
-		else{
-			
-			motor2.set(0);
+		
+		else if (shot==true && take==true){
+			frontIntakeMotor.set(FRONT_ON);
+			upperRearMotor.set(REAR_UPPER_ON);
+			rearLowerMotor.set(REAR_LOWER_OUT);
 		}
-
-shot=false;
-take=false;
+		
+		shot=false;
+		take=false;
+		
 
 	}
 
