@@ -63,9 +63,22 @@ public class DriveTrain implements MagicComponent {
 			return false;
 		}
 	}
+	
+	private double computeError(double setpoint, double input) {
+		double error = setpoint - input;
+		if (Math.abs(error) > 180.0) {
+			if (error > 0) {
+				error = error - 360.0;
+			} else {
+				error = error + 360.0;
+			}
+		} 
+	    
+		return error;
+	}
 
 	public boolean rotateTo(double angle){
-		double error = (angle - getDistance());
+		double error = computeError(angle, getDistance());
 		if(Math.abs(error) < 2.0){
 			return true;
 
