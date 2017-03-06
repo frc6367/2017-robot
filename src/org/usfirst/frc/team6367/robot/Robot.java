@@ -6,6 +6,7 @@ import org.usfirst.frc.team6367.robot.components.DriveTrain;
 import org.usfirst.frc.team6367.robot.components.Fuel;
 import org.usfirst.frc.team6367.robot.components.Gears;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import io.github.robotpy.magicbot.MagicRobot;
 
@@ -21,6 +22,10 @@ public class Robot extends MagicRobot {
 	
 	@Override
 	protected void createObjects() {
+		
+		// enable basic camera support
+		// -> TODO: add target tracking
+		CameraServer.getInstance().startAutomaticCapture();
 
 		// add components first
 		driveTrain = new DriveTrain();
