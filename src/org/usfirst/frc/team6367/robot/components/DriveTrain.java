@@ -5,11 +5,16 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import io.github.robotpy.magicbot.MagicComponent;
 
 public class DriveTrain implements MagicComponent {
-
+  Talon wheelMotor1 = new Talon(1);
+  Talon wheelMotor2 = new Talon(2);
+  Talon wheelMotor3 = new Talon(3);
+  Talon WheelMotor4 = new Talon(4);
+	
 	double ENCODER_P = 0.1;
 	double ANGLE_P = 0.1;
 
