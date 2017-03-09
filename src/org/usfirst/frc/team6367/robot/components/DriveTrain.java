@@ -5,11 +5,17 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import io.github.robotpy.magicbot.MagicComponent;
 
-public class DriveTrain implements MagicComponent {
 
+
+public class DriveTrain implements MagicComponent {
+	Victor frontRightMotor = new Victor(0);
+	 Victor frontLeftMotor = new Victor(1);
+	 Victor backRightMotor = new Victor(2);
+	 Victor backLeftMotor = new Victor(3);
 	double ENCODER_P = 0.1;
 	double ANGLE_P = 0.1;
 

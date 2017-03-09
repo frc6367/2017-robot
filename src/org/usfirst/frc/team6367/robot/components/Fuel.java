@@ -11,9 +11,9 @@ public class Fuel implements MagicComponent {
 	static final int REAR_LOWER_IN = 1;
 	static final int REAR_LOWER_OUT =-1;
 	
-	Victor frontIntakeMotor = new Victor(5);
-	Victor upperRearMotor = new Victor(6);
-	Victor rearLowerMotor = new Victor (7);
+	Victor frontIntakeMotor = new Victor(6);
+	Victor upperRearMotor = new Victor(5);
+	Victor rearLowerMotor = new Victor(4);
 	
 
 	boolean shot = false;
