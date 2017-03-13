@@ -6,8 +6,8 @@ import org.usfirst.frc.team6367.robot.components.DriveTrain;
 import org.usfirst.frc.team6367.robot.components.Fuel;
 import org.usfirst.frc.team6367.robot.components.Gears;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
+import io.github.robotpy.cscore.CameraServer;
 import io.github.robotpy.magicbot.MagicRobot;
 
 public class Robot extends MagicRobot {
@@ -25,10 +25,13 @@ public class Robot extends MagicRobot {
 		
 		// enable basic camera support
 		// -> TODO: add target tracking
-		CameraServer.getInstance().startAutomaticCapture();
+		// Java camera server
+		//CameraServer.getInstance().startAutomaticCapture();
+		// Python camera server
+		CameraServer.startPythonVision("/vision.py", "main");
 
 		// add components first
-		driveTrain = new DriveTrain();
+		/*driveTrain = new DriveTrain();
 		addComponent(driveTrain);
 		
 		 climb = new Climber();
@@ -41,7 +44,7 @@ public class Robot extends MagicRobot {
 		addComponent(fuel);
 
 		// then add autonomous modes
-		addAutonomous("Demo", new DriveForwardAutonomous());
+		addAutonomous("Demo", new DriveForwardAutonomous());*/
 	}
 	@Override
 	protected void teleopInit() {
