@@ -13,21 +13,21 @@ public class SideGearAutonomous extends AutonomousStateMachine {
 	
 	@State(first = true)
 	public void driveForward(){
-	if(drivetrain.moveTo() == true){
+	if(drivetrain.moveTo(0) == true){
 	 nextState("rotateTo");
 	}
 	
 	}
 	@State
 	public void rotateTo(){
-		if(drivetrain.rotateTo() == true){
+		if(drivetrain.rotateTo(0) == true){
 			nextState("driveForwardAgain");
 		}
 		
 	}
 	
 	public void driveForwardAgain(){
-		if(drivetrain.moveTo() == true){
+		if(drivetrain.moveTo(0) == true){
 			done();
 		}
 	}
