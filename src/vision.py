@@ -15,10 +15,15 @@ class ImageProcessor(object):
         Stuff here.
     '''
     
-    # Values for the lifecam-3000
-    VFOV = 45.6
-    HFOV = 61 # Camera's horizontal field of view
-    
+    if False:
+        # Values for the lifecam-3000
+        VFOV = 45.6
+        HFOV = 61 # Camera's horizontal field of view
+    elif True:
+        # Values for the Logitech C930e
+        VFOV = 61.9
+        HFOV = 77.3
+        
     VFOV_2 = VFOV / 2.0
     HFOV_2 = HFOV / 2.0
     
@@ -28,15 +33,20 @@ class ImageProcessor(object):
     BLUE = (255, 0, 0)
     MOO = (255, 255, 0)
     
-    enabled = ntproperty('/camera/enabled', True)
-    tuning = ntproperty('/camera/tuning', True)
+    enabled = ntproperty('/camera/enabled', False, writeDefault=True)
+    tuning = ntproperty('/camera/tuning', False, writeDefault=True)
+    logging_enabled = ntproperty('/camera/logging_enabled', False, writeDefault=True)
     
-    target = ntproperty('/camera/target', (0, 0, INF))
+    target = ntproperty('/camera/target', (0, 0, INF), writeDefault=True)
     
     # TODO:
     # Amber: 0,255 . 70/191 . 252/255?
     # Green:
     # Blue:
+    
+    # boston 2013: 30 75 188 255 16 255
+    # virginia 2014: ?
+    # test image:  43 100 0 255 57 255
     
     thresh_hue_p = ntproperty('/camera/thresholds/hue_p', 0)
     thresh_hue_n = ntproperty('/camera/thresholds/hue_n', 255)
@@ -187,6 +197,7 @@ def main():
     # TODO: get rid of this boilerplate, or make it easier to do
     
     from cscore import CameraServer
+    from cscore.imagewriter import ImageWriter
     cs = CameraServer.getInstance()
     camera = cs.startAutomaticCapture(dev=0)
     camera.setResolution(320, 240)
@@ -197,6 +208,7 @@ def main():
     c.setResolution(320, 240)
     
     proc = ImageProcessor()
+    writer = ImageWriter()
     
     enabled = None
     
@@ -218,6 +230,9 @@ def main():
                 camera.setExposureAuto()
         
         if enabled:
+            if proc.logging_enabled:
+                writer.setImage(img)
+            
             out, target = proc.process(img)
         else:
             out = img
