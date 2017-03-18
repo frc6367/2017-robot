@@ -31,10 +31,16 @@ public class DriveTrain implements MagicComponent {
 	RobotDrive m_drive = new RobotDrive(frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
 	Encoder encoder= new Encoder(0,1);
 	AHRS navX = new AHRS(SPI.Port.kMXP);
+	
+	public DriveTrain() {
+		SmartDashboard.putNumber("encoder_p", ENCODER_P);
+		SmartDashboard.putNumber("angle_p", ANGLE_P);
+	}
 
 	@Override
 	public void onEnabled() {
 		ENCODER_P = SmartDashboard.getNumber("encoder_p", ENCODER_P);
+		ANGLE_P = SmartDashboard.getNumber("angle_p", ANGLE_P);
 	}
 
 
@@ -71,7 +77,13 @@ public class DriveTrain implements MagicComponent {
 		}
 	}
 	
+	private double normalizeAngle(double angle) {
+		return ((angle + 180.0) % 360.0) - 180.0;
+	}
+	
 	private double computeError(double setpoint, double input) {
+		setpoint = normalizeAngle(setpoint);
+		
 		double error = setpoint - input;
 		if (Math.abs(error) > 180.0) {
 			if (error > 0) {
@@ -85,7 +97,7 @@ public class DriveTrain implements MagicComponent {
 	}
 
 	public boolean rotateTo(double angle){
-		double error = computeError(angle, getDistance());
+		double error = computeError(angle, getAngle());
 		if(Math.abs(error) < 2.0){
 			return true;
 
