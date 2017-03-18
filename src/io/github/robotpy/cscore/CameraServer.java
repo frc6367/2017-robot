@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * Provides a way to launch an out of process Python robotpy-cscore based

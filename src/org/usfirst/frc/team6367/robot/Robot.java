@@ -31,7 +31,7 @@ public class Robot extends MagicRobot {
 		CameraServer.startPythonVision("/vision.py", "main");
 
 		// add components first
-		/*driveTrain = new DriveTrain();
+		driveTrain = new DriveTrain();
 		addComponent(driveTrain);
 		
 		 climb = new Climber();
@@ -44,7 +44,7 @@ public class Robot extends MagicRobot {
 		addComponent(fuel);
 
 		// then add autonomous modes
-		addAutonomous("Demo", new DriveForwardAutonomous());*/
+		addAutonomous("Drive Forward", new DriveForwardAutonomous(), true);
 	}
 	@Override
 	protected void teleopInit() {
@@ -67,8 +67,12 @@ public class Robot extends MagicRobot {
 		}
 		
 		// button 11 is pressed  then climb
-		if(rightStick.getRawButton(11)){
+		if(rightStick.getTrigger()){
 			climb.climb();
+		}
+		
+		if (leftStick.getRawButton(3)) {
+			gear.align();
 		}
 				
 	}

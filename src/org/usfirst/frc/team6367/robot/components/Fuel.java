@@ -7,9 +7,9 @@ public class Fuel implements MagicComponent {
 
 	
 	static final int OFF = 0;
-	static final int REAR_UPPER_ON = 1;
-	static final int REAR_LOWER_IN = 1;
-	static final int REAR_LOWER_OUT =-1;
+	static final double REAR_UPPER_ON = 1;
+	static final double REAR_LOWER_IN = -1;
+	static final double REAR_LOWER_OUT = 1;
 	
 	
 	VictorSP upperRearMotor = new VictorSP(5);

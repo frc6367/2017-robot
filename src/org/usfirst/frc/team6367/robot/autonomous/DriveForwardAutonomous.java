@@ -11,7 +11,7 @@ public class DriveForwardAutonomous extends AutonomousStateMachine {
 	@MagicInject
 	DriveTrain driveTrain;
 
-	@TimedState(first=true, duration=5)
+	@TimedState(first=true, duration=2.5)
 	public void drivingForward(){
 		driveTrain.move(-0.5, 0);
 		

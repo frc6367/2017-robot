@@ -1,11 +1,11 @@
-package org.usfirst.frc.team6367.robot.components;
+ package org.usfirst.frc.team6367.robot.components;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import io.github.robotpy.magicbot.MagicComponent;
 
 public class Climber implements MagicComponent {
 	boolean climb = false;
-	Victor motor = new Victor(7);
+	VictorSP motor = new VictorSP(6);
 
 	public void climb() {
 		climb = true;
@@ -13,9 +13,9 @@ public class Climber implements MagicComponent {
 
 	public void execute() {
 		if (climb == true) {
-			motor.set(1);
+			motor.set(1.0);
 		} else {
-			motor.set(0);
+			motor.set(0.0);
 		}
 
 		climb = false;
