@@ -7,13 +7,11 @@ import org.usfirst.frc.team6367.robot.components.Fuel;
 import org.usfirst.frc.team6367.robot.components.Gears;
 
 import edu.wpi.first.wpilibj.Joystick;
-import io.github.robotpy.cscore.CameraServer;
 import io.github.robotpy.magicbot.MagicRobot;
 
 public class Robot extends MagicRobot {
 	
 	Joystick leftStick = new Joystick(0);
-	Joystick rightStick = new Joystick(1);
 	
 	DriveTrain driveTrain;
 	Climber climb;
@@ -26,9 +24,9 @@ public class Robot extends MagicRobot {
 		// enable basic camera support
 		// -> TODO: add target tracking
 		// Java camera server
-		//CameraServer.getInstance().startAutomaticCapture();
+		edu.wpi.first.wpilibj.CameraServer.getInstance().startAutomaticCapture(0);
 		// Python camera server
-		CameraServer.startPythonVision("/vision.py", "main");
+		//CameraServer.startPythonVision("/vision.py", "main");
 
 		// add components first
 		driveTrain = new DriveTrain();
@@ -37,7 +35,7 @@ public class Robot extends MagicRobot {
 		 climb = new Climber();
 		addComponent(climb);
 
-		 gear = new Gears();
+		 gear = new Gears(driveTrain);
 		addComponent(gear);
 
 		 fuel = new Fuel();
@@ -46,11 +44,12 @@ public class Robot extends MagicRobot {
 		// then add autonomous modes
 		addAutonomous("Drive Forward", new DriveForwardAutonomous(), true);
 	}
+		
 	@Override
 	protected void teleopInit() {
 
 	}
-
+	
 	@Override
 	protected void teleopPeriodic(){
 		// robot should drive
@@ -67,7 +66,7 @@ public class Robot extends MagicRobot {
 		}
 		
 		// button 11 is pressed  then climb
-		if(rightStick.getTrigger()){
+		if(leftStick.getRawButton(4)==true){
 			climb.climb();
 		}
 		

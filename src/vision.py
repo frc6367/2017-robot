@@ -199,13 +199,13 @@ def main():
     from cscore import CameraServer
     from cscore.imagewriter import ImageWriter
     cs = CameraServer.getInstance()
-    camera = cs.startAutomaticCapture(dev=0)
+    camera = cs.startAutomaticCapture()
     camera.setResolution(320, 240)
     cvSink = cs.getVideo()
     outputStream = cs.putVideo("CV", 320, 240)
     
-    c = cs.startAutomaticCapture(dev=1)
-    c.setResolution(320, 240)
+    #c = cs.startAutomaticCapture(dev=1)
+    #c.setResolution(320, 240)
     
     proc = ImageProcessor()
     writer = ImageWriter()

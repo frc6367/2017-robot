@@ -13,7 +13,7 @@ public class DriveForwardAutonomous extends AutonomousStateMachine {
 
 	@TimedState(first=true, duration=2.5)
 	public void drivingForward(){
-		driveTrain.move(-0.5, 0);
+		driveTrain.move(-0.8, 0);
 		
 	}
 	
