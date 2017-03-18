@@ -188,12 +188,12 @@ def main():
     
     from cscore import CameraServer
     cs = CameraServer.getInstance()
-    camera = cs.startAutomaticCapture(0)
+    camera = cs.startAutomaticCapture(dev=0)
     camera.setResolution(320, 240)
     cvSink = cs.getVideo()
     outputStream = cs.putVideo("CV", 320, 240)
     
-    c = cs.startAutomaticCapture(1)
+    c = cs.startAutomaticCapture(dev=1)
     c.setResolution(320, 240)
     
     proc = ImageProcessor()
