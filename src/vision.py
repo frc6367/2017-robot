@@ -57,7 +57,7 @@ class ImageProcessor(object):
     
     draw = ntproperty('/camera/draw_targets', True)
     draw_thresh = ntproperty('/camera/draw_thresh', False)
-    draw_c1 = ntproperty('/camera/draw_c1', True)
+    draw_c1 = ntproperty('/camera/draw_c1', False)
     
     def __init__(self):
         
@@ -75,6 +75,9 @@ class ImageProcessor(object):
             self.out = np.empty((h, w, 3), dtype=np.uint8)
             self.bin = np.empty((h, w, 1), dtype=np.uint8)
             self.hsv = np.empty((h, w, 3), dtype=np.uint8)
+            
+            self.subr = np.empty((h, w, 1), dtype=np.uint8)
+            self.addr = np.empty((h, w, 1), dtype=np.uint8)
             
             # for drawing
             self.zeros = np.zeros((h, w, 1), dtype=np.bool)
@@ -96,15 +99,30 @@ class ImageProcessor(object):
         
         self.preallocate(img)
         
-        # Convert to HSV
-        cv2.cvtColor(img, cv2.COLOR_BGR2HLS, dst=self.hsv)
-        
-        if self.tuning:
-            self.lower = np.array([self.thresh_hue_p, self.thresh_sat_p, self.thresh_val_p], dtype=np.uint8)
-            self.upper = np.array([self.thresh_hue_n, self.thresh_sat_n, self.thresh_val_n], dtype=np.uint8)
-        
-        # Threshold
-        cv2.inRange(self.hsv, self.lower, self.upper, dst=self.bin)
+        if False:
+            # Convert to HSV
+            cv2.cvtColor(img, cv2.COLOR_BGR2HLS, dst=self.hsv)
+            
+            if self.tuning:
+                self.lower = np.array([self.thresh_hue_p, self.thresh_sat_p, self.thresh_val_p], dtype=np.uint8)
+                self.upper = np.array([self.thresh_hue_n, self.thresh_sat_n, self.thresh_val_n], dtype=np.uint8)
+            
+            # Threshold
+            cv2.inRange(self.hsv, self.lower, self.upper, dst=self.bin)
+        else:
+            # experimental thresholding from frc900:
+            # - Add blue and red channels
+            # - Subtract them from green
+            # - Run otsu's threshold on it and use that
+            
+            cv2.add(img[:,:,0], img[:,:,2], dst=self.addr)
+            cv2.subtract(img[:,:,1], self.addr, dst=self.subr)
+            
+            r,_ = cv2.threshold(self.subr, 0, 255,
+                                cv2.THRESH_BINARY+cv2.THRESH_OTSU,
+                                dst=self.bin)
+            if r < 1:
+                return self.out, None
         
         # Fill in the gaps
         cv2.morphologyEx(self.bin, cv2.MORPH_CLOSE, self.morphKernel, dst=self.bin,
